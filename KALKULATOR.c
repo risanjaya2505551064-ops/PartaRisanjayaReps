@@ -34,7 +34,7 @@ void getTwoNumbers(float* num1, float* num2) {
         while (getchar() != '\n');
         printf("Masukkan Angka pertama  = ");
     }
-    while (getchar() != '\n'); 
+    
 
     printf("Masukkan Angka kedua    = ");
     while (scanf("%f", num2) != 1) {
@@ -42,7 +42,7 @@ void getTwoNumbers(float* num1, float* num2) {
         while (getchar() != '\n'); 
         printf("Masukkan Angka kedua    = ");
     }
-    while (getchar() != '\n'); 
+     
 }
 
 void addition() {
