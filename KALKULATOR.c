@@ -34,13 +34,15 @@ void getTwoNumbers(float* num1, float* num2) {
         while (getchar() != '\n');
         printf("Masukkan Angka pertama  = ");
     }
+    while (getchar() != '\n'); 
 
     printf("Masukkan Angka kedua    = ");
     while (scanf("%f", num2) != 1) {
         printf("== Invalid input. Please enter a number only ==.\n");
-        while (getchar() != '\n');
+        while (getchar() != '\n'); 
         printf("Masukkan Angka kedua    = ");
     }
+    while (getchar() != '\n'); 
 }
 
 void addition() {
@@ -71,7 +73,7 @@ void division() {
         result = num1 / num2;
         printf("Result= %.2f\n", result);
     } else {
-        printf("== Error Ngabs! Pembagian Ga bisa Pake 0 ==\n");
+        printf("== Error ! Pembagian Ga bisa Pake 0 ==\n");
     }
 }
 
@@ -80,37 +82,54 @@ void modulo() {
 
     printf("Masukkan Angka pertama  = ");
     while (scanf("%d", &num1) != 1) {
-        printf("== Error Ngabs! Tolong Input Integer Only ==.\n");
+        printf("== Error ! Tolong Input Integer Only ==.\n");
         while (getchar() != '\n');
         printf("Masukkan Angka pertama  = ");
     }
+    while (getchar() != '\n');
 
     printf("Masukkan Angka kedua  = ");
     while (scanf("%d", &num2) != 1) {
-        printf("== Error Ngabs! Tolong Input Integer Only ==.\n");
+        printf("== Error ! Tolong Input Integer Only ==.\n");
         while (getchar() != '\n');
         printf("Masukkan Angka kedua  = ");
     }
+    while (getchar() != '\n');
 
     if (num2 != 0) {
         result = num1 % num2;
         printf("Result= %d\n", result);
     } else {
-        printf("== Error Ngabs! Modulo Ga bisa Pake 0 ==\n");
+        printf("== Error ! Modulo Ga bisa Pake 0 ==\n");
     }
 }
 
 int main() {
     int choice;
-    char cont;
+    int cont; 
+    char inputBuffer[100]; 
     starting();
     do {
         displayMenu();
 
-        while (scanf("%d", &choice) != 1) {
-            printf("\n\n\n== Error Ngabs! Tolong Masukkan angka antara 1 - 6 ==\n");
-            while (getchar() != '\n');
-            displayMenu();
+        while (1) {
+            if (!fgets(inputBuffer, sizeof(inputBuffer), stdin)) {
+                choice = 6; 
+                break;
+            }
+
+            if (inputBuffer[0] == '\n') {
+                printf("\n== Error ! Input tidak boleh kosong. Tolong masukkan angka. ==\n");
+                printf("Pilih Operasi Yang diinginkan (1-6): ");
+                continue;
+            }
+
+            if (sscanf(inputBuffer, "%d", &choice) == 1) {
+                break; 
+            } else {
+                printf("\n\n\n== Error ! Tolong Masukkan angka antara 1 - 6 ==\n");
+                printf("Pilih Operasi Yang diinginkan (1-6): ");
+            }
         }
 
         switch (choice) {
@@ -131,41 +150,49 @@ int main() {
                 break;
             case 6:
                 for (int i = 0; i < 80; i++) {
-                   printf("*");
+                    printf("*");
                 }
-                printf("\n              == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
+                printf("\n        == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
                 for (int i = 0; i < 80; i++) {
-                   printf("*");
+                    printf("*");
                 }
-                continue;
+                printf("\n");
+                continue; 
             default:
-                printf("\n\n\n          == Error Ngabs! Tolong masukkan angka antara 1 - 6 ==\n");
-                while (getchar() != '\n');
-                continue;
+                printf("\n\n\n        == Error ! Tolong masukkan angka antara 1 - 6 ==\n");
+                continue; 
         }
 
         while (1) {
-            printf("APAKAH KAMU INGIN MELAKUKAN OPERASI LAGI? (y/n): ");
-            scanf(" %c", &cont);
+            printf("APAKAH KAMU INGIN MELAKUKAN OPERASI LAGI? (1=Yes / 2=No): ");
 
-            while (getchar() != '\n');
-
-            if (cont == 'y' || cont == 'Y' || cont == 'n' || cont == 'N') {
+            if (!fgets(inputBuffer, sizeof(inputBuffer), stdin)) {
+                cont = 2; 
                 break;
+            }
+
+            if (inputBuffer[0] == '\n') {
+                printf("== Error ! Tolong input '1' untuk Yes atau '2' untuk No ==\n");
+                continue;
+            }
+            
+            if (sscanf(inputBuffer, "%d", &cont) == 1 && (cont == 1 || cont == 2)) {
+                 break; 
             } else {
-                printf("== Error Ngabs! Tolong input 'y' / 'n' ==\n");
+                 printf("== Error ! Tolong input '1' untuk Yes atau '2' untuk No ==\n");
             }
         }
 
-        if (cont == 'n' || cont == 'N') {
+        if (cont == 2) {
             choice = 6;
             for (int i = 0; i < 80; i++) {
-                   printf("*");
-                }
-                printf("\n          == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
-                for (int i = 0; i < 80; i++) {
-                   printf("*");
-                }
+                printf("*");
+            }
+            printf("\n        == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
+            for (int i = 0; i < 80; i++) {
+                printf("*");
+            }
+            printf("\n");
         }
 
     } while (choice != 6);
