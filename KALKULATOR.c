@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
 void starting() {
     int i;
     int stip = 80;
@@ -31,18 +36,18 @@ void getTwoNumbers(float* num1, float* num2) {
     printf("Masukkan Angka pertama  = ");
     while (scanf("%f", num1) != 1) {
         printf("== Invalid input. Please enter a number only ==.\n");
-        while (getchar() != '\n');
+        clearInputBuffer();
         printf("Masukkan Angka pertama  = ");
     }
-    
+    clearInputBuffer();
 
     printf("Masukkan Angka kedua    = ");
     while (scanf("%f", num2) != 1) {
         printf("== Invalid input. Please enter a number only ==.\n");
-        while (getchar() != '\n'); 
+        clearInputBuffer();
         printf("Masukkan Angka kedua    = ");
     }
-     
+    clearInputBuffer();
 }
 
 void addition() {
@@ -83,18 +88,18 @@ void modulo() {
     printf("Masukkan Angka pertama  = ");
     while (scanf("%d", &num1) != 1) {
         printf("== Error ! Tolong Input Integer Only ==.\n");
-        while (getchar() != '\n');
+        clearInputBuffer();
         printf("Masukkan Angka pertama  = ");
     }
-    while (getchar() != '\n');
+    clearInputBuffer();
 
     printf("Masukkan Angka kedua  = ");
     while (scanf("%d", &num2) != 1) {
         printf("== Error ! Tolong Input Integer Only ==.\n");
-        while (getchar() != '\n');
+        clearInputBuffer();
         printf("Masukkan Angka kedua  = ");
     }
-    while (getchar() != '\n');
+    clearInputBuffer();
 
     if (num2 != 0) {
         result = num1 % num2;
@@ -106,15 +111,15 @@ void modulo() {
 
 int main() {
     int choice;
-    int cont; 
-    char inputBuffer[100]; 
+    int cont;
+    char inputBuffer[100];
     starting();
     do {
         displayMenu();
 
         while (1) {
             if (!fgets(inputBuffer, sizeof(inputBuffer), stdin)) {
-                choice = 6; 
+                choice = 6;
                 break;
             }
 
@@ -125,7 +130,7 @@ int main() {
             }
 
             if (sscanf(inputBuffer, "%d", &choice) == 1) {
-                break; 
+                break;
             } else {
                 printf("\n\n\n== Error ! Tolong Masukkan angka antara 1 - 6 ==\n");
                 printf("Pilih Operasi Yang diinginkan (1-6): ");
@@ -149,25 +154,17 @@ int main() {
                 modulo();
                 break;
             case 6:
-                for (int i = 0; i < 80; i++) {
-                    printf("*");
-                }
-                printf("\n        == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
-                for (int i = 0; i < 80; i++) {
-                    printf("*");
-                }
-                printf("\n");
-                continue; 
+                continue;
             default:
-                printf("\n\n\n        == Error ! Tolong masukkan angka antara 1 - 6 ==\n");
-                continue; 
+                printf("\n\n\n      == Error ! Tolong masukkan angka antara 1 - 6 ==\n");
+                continue;
         }
 
         while (1) {
             printf("APAKAH KAMU INGIN MELAKUKAN OPERASI LAGI? (1=Yes / 2=No): ");
 
             if (!fgets(inputBuffer, sizeof(inputBuffer), stdin)) {
-                cont = 2; 
+                cont = 2;
                 break;
             }
 
@@ -175,27 +172,28 @@ int main() {
                 printf("== Error ! Tolong input '1' untuk Yes atau '2' untuk No ==\n");
                 continue;
             }
-            
+
             if (sscanf(inputBuffer, "%d", &cont) == 1 && (cont == 1 || cont == 2)) {
-                 break; 
+                break;
             } else {
-                 printf("== Error ! Tolong input '1' untuk Yes atau '2' untuk No ==\n");
+                printf("== Error ! Tolong input '1' untuk Yes atau '2' untuk No ==\n");
             }
         }
 
         if (cont == 2) {
             choice = 6;
-            for (int i = 0; i < 80; i++) {
-                printf("*");
-            }
-            printf("\n        == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
-            for (int i = 0; i < 80; i++) {
-                printf("*");
-            }
-            printf("\n");
         }
 
     } while (choice != 6);
+
+    for (int i = 0; i < 80; i++) {
+        printf("*");
+    }
+    printf("\n        == TERIMAKASIH TELAH MENGGUNAKAN KALKULATOR INI. Adieu! ==\n");
+    for (int i = 0; i < 80; i++) {
+        printf("*");
+    }
+    printf("\n");
 
     return 0;
 }
